@@ -1,5 +1,4 @@
-﻿using System.Windows;
-
+﻿using System.Windows; //this is the only place that uses wpf stuff.
 namespace AOEOAdvancedWindowsLibrary.Shared.Configurations;
 public static class TestConfiguration
 {
