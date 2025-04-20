@@ -12,7 +12,8 @@ public static class ServiceExtensions
         {
             services.RegisterSpartanMonitorServices(); //this needs monitoring (even if no ocr,etc).
             services.AddSingleton<IQuestLocatorService, L>()
-            .AddSingleton<IAddTechsToCharacterService, NoTechsCharacterService>();
+                .AddSingleton<IAddTechsToCharacterService, NoTechsCharacterService>()
+                .AddSingleton<IAddTechsToTechTreeService, ChampionCustomTechClass>();
             services.AddSingleton<IPlayQuestViewModel, ChampionTestSingleQuestViewModel>();
             services.RegisterCoreOfflineServices()
             .RegisterStandardQuestServices()
