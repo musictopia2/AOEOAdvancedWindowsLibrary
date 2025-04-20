@@ -9,4 +9,5 @@ public interface IQuestSettings
     int DelayedAttackTime { get; set; }
     int LimitedHumanEffectTime { get; set; }
     int LimitedComputerEffectTime { get; set; }
+    bool SeeAllMap { get; set; }
 }

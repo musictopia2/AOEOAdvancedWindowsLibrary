@@ -32,5 +32,9 @@ public static class AccommodationExtensions
         {
             source.AddAutomationTownCenterTech();
         }
+        if (settings.SeeAllMap)
+        {
+            source.AddMapBoolVariable("SeeAll", true);
+        }
     }
 }

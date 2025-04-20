@@ -9,4 +9,5 @@ public class SimpleQuestSettings : IQuestSettings
     public int DelayedAttackTime { get; set; }
     public int LimitedHumanEffectTime { get; set; }
     public int LimitedComputerEffectTime { get; set; }
+    public bool SeeAllMap { get; set; }
 }
