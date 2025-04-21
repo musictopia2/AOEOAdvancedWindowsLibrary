@@ -16,13 +16,19 @@ public class SpartanMonitorService(ISpartanExitHandler exit) : ISpartanMonitor, 
     {
         while (!token.IsCancellationRequested)
         {
-            var process = Process.GetProcessesByName("Spartan").FirstOrDefault();
-            if (process is null || process.HasExited)
+            if (SpartanUtilities.IsSpartanRunning() == false)
             {
                 StopWatching();
                 await exit.ExitSpartanAsync(stage);
                 break;
             }
+            //var process = Process.GetProcessesByName("Spartan").FirstOrDefault();
+            //if (process is null || process.HasExited)
+            //{
+            //    StopWatching();
+            //    await exit.ExitSpartanAsync(stage);
+            //    break;
+            //}
             await Task.Delay(1000, token);
         }
     }

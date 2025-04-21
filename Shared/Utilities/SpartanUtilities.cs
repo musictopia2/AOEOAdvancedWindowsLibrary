@@ -3,10 +3,6 @@ public static class SpartanUtilities
 {
     public static void ExitSpartan()
     {
-        if (IsSpartanRunning())
-        {
-            return;
-        }
         foreach (var process in Process.GetProcessesByName("Spartan"))
         {
             try

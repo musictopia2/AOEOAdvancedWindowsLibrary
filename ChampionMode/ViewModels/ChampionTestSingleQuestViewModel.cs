@@ -47,6 +47,7 @@ public class ChampionTestSingleQuestViewModel(IChooseCivViewModel civVM,
         //await businessService.DoAllTechsAsync();
         await businessService.DoAllTechsAsync();
         tactics.DoAllTactics();
+        SpartanUtilities.ExitSpartan(); //if there are any opened, must be closed.
         playService.OpenOfflineGame(dd1.SpartanDirectoryPath);
         location.PopulateClickLocations();
         launch.OnSpartanLaunched();
