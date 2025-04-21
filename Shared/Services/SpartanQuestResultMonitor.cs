@@ -23,7 +23,14 @@ public partial class SpartanQuestResultMonitor(
                 end.EndQuest(result, time);
                 return;
             }
-            await Task.Delay(5000, token); // optional: cancels delay if token is canceled
+            try
+            {
+                await Task.Delay(5000, token); // optional: cancels delay if token is canceled
+            }
+            catch (TaskCanceledException)
+            {
+                return;
+            }
         }
     }
     private async Task<string> GetTimeAsync(CancellationToken token)
@@ -43,6 +50,7 @@ public partial class SpartanQuestResultMonitor(
         Rectangle bounds = OcrConfiguration.QuestStatusRegion;
         using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
         string text = await ocr.GetTextAsync(bitmap, token);
+        
         if (text.Contains(OcrConfiguration.SuccessMessage))
         {
             return EnumSpartaQuestResult.Completed;

@@ -29,3 +29,4 @@ global using AOEOAdvancedWindowsLibrary.ChampionMode.ViewModels;
 global using Microsoft.Extensions.DependencyInjection;
 global using CommonBasicLibraries.BasicUIProcesses;
 global using WindowsGenericPopups.WPFCoreLibrary.Popups;
+global using AOEOAdvancedWindowsLibrary.Shared.Utilities;

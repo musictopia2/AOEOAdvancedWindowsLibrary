@@ -1,5 +1,5 @@
 ﻿namespace AOEOAdvancedWindowsLibrary.Shared.Services;
-public class ToastQuestEnder(IOpenTimedPopup pop) : ISpartaQuestEnded
+public class ToastQuestEnder(IOpenTimedPopup pop, IExit exit) : ISpartaQuestEnded
 {
     async void ISpartaQuestEnded.EndQuest(EnumSpartaQuestResult result, string time)
     {
@@ -17,5 +17,7 @@ public class ToastQuestEnder(IOpenTimedPopup pop) : ISpartaQuestEnded
             throw new CustomBasicException("Invalid result");
         }
         await pop.OpenPopupAsync(message, 2000);
+        SpartanUtilities.ExitSpartan();
+        exit.ExitApp();
     }
 }

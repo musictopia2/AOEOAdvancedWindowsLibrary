@@ -5,7 +5,7 @@ public class ToastAndExitHandler(IOpenTimedPopup pop, IExit exit) : ISpartanExit
     {
         string message;
         message = $"Spartan Exited At Stage {stage}";
-        await pop.OpenPopupAsync(message, 2000);
+        await pop.OpenPopupAsync(message, 500);
         exit.ExitApp();
     }
 }
