@@ -21,7 +21,7 @@ public class OcrDetectionSpartanLaunchHandler(ICaptureGrayScaleMask capture
 
         while (!token.IsCancellationRequested)
         {
-            if (IsLoaded())
+            if (await IsLoadedAsync(token))
             {
                 break;
             }
@@ -34,11 +34,11 @@ public class OcrDetectionSpartanLaunchHandler(ICaptureGrayScaleMask capture
         }
         await ready.LoadQuestAsync();
     }
-    private bool IsLoaded()
+    private async Task<bool> IsLoadedAsync(CancellationToken token)
     {
         Rectangle bounds = OcrConfiguration.IsLoadedRegion;
         using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
-        string text = ocr.GetText(bitmap);
+        string text = await ocr.GetTextAsync(bitmap, token);
         if (text.Contains(OcrConfiguration.LoadIdentifier))
         {
             return true;

@@ -16,21 +16,21 @@ public partial class SpartanQuestResultMonitor(
         EnumSpartaQuestResult result;
         while (!token.IsCancellationRequested)
         {
-            result = GetResults();
+            result = await GetResultsAsync(token);
             if (result != EnumSpartaQuestResult.Ongoing)
             {
-                string time = GetTime();
+                string time = await GetTimeAsync(token);
                 end.EndQuest(result, time);
                 return;
             }
             await Task.Delay(5000, token); // optional: cancels delay if token is canceled
         }
     }
-    private string GetTime()
+    private async Task<string> GetTimeAsync(CancellationToken token)
     {
         Rectangle bounds = OcrConfiguration.TimerRegion;
         using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
-        string text = ocr.GetText(bitmap);
+        string text = await ocr.GetTextAsync(bitmap, token);
         var timeMatch = TimeMatch().Match(text);
         if (timeMatch.Success)
         {
@@ -38,11 +38,11 @@ public partial class SpartanQuestResultMonitor(
         }
         return "";
     }
-    private EnumSpartaQuestResult GetResults()
+    private async Task<EnumSpartaQuestResult> GetResultsAsync(CancellationToken token)
     {
         Rectangle bounds = OcrConfiguration.QuestStatusRegion;
         using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
-        string text = ocr.GetText(bitmap);
+        string text = await ocr.GetTextAsync(bitmap, token);
         if (text.Contains(OcrConfiguration.SuccessMessage))
         {
             return EnumSpartaQuestResult.Completed;

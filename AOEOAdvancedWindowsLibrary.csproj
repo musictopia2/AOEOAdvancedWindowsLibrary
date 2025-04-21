@@ -13,8 +13,8 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommonBasicLibraries" Version="9.0.18" />
-    <PackageReference Include="Musictopia.WindowsImageAbstractionsLibrary" Version="9.0.1" />
+    <PackageReference Include="CommonBasicLibraries" Version="9.0.22" />
+    <PackageReference Include="Musictopia.WindowsImageAbstractionsLibrary" Version="9.0.3" />
     <PackageReference Include="WindowsAutoClickerLibrary" Version="9.0.3" />
     <PackageReference Include="QuestTesterLibrary" Version="9.0.3" />
     <PackageReference Include="AOEOTechEditorLibrary" Version="9.0.3" />

@@ -10,10 +10,7 @@ public class OcrConfiguration
     public static string LoadIdentifier { get; set; } = "11158";
     public static void DoubleCheck()
     {
-        if (string.IsNullOrWhiteSpace(bb1.OcrDataPath))
-        {
-            throw new CustomBasicException("Did not set the path to the ocr path");
-        }
+        //since someone may use a different system, a person is now on their own if they did not set the ocr path.
         // Checking if the Rectangle properties are set to their default value (i.e., Empty).
         if (TimerRegion == Rectangle.Empty)
         {

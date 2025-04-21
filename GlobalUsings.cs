@@ -23,7 +23,6 @@ global using WindowsGenericPopups.CoreLibrary;
 global using System.Diagnostics;
 global using AOEOCivilizationLibrary.ApplicationState;
 global using AOEOCivilizationLibrary.ViewModels;
-global using bb1 = CommonBasicLibraries.BasicDataSettingsAndProcesses.BasicDataFunctions;
 global using WindowsImageAbstractionsLibrary;
 global using System.Text.RegularExpressions;
 global using AOEOAdvancedWindowsLibrary.ChampionMode.ViewModels;
