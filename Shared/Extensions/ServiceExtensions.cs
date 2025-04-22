@@ -75,4 +75,14 @@ public static class ServiceExtensions
         services.AddSingleton<IUnitProcessor, StandardUnitProcessor>();
         return services;
     }
+    internal static IServiceCollection RegisterCoreQuestQuestProcessorServices(this IServiceCollection services)
+    {
+        services.AddSingleton<QuestFileContainer>()
+            .AddSingleton<ICivilizationContext, CivilizationContext>()
+            .AddSingleton<IPlayQuestService, PlayQuestService>()
+            .AddSingleton<IChooseCivViewModel, ChooseCivViewModel>() //since i am not using the test anymore
+            .AddSingleton<ICivilizationDataService, InMemoryCivilizationDataService>()
+            ;
+        return services;
+    }
 }

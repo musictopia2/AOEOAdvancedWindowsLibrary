@@ -12,6 +12,7 @@ public static class ServiceExtensions
         {
             services.RegisterSpartanMonitorServices(); //this needs monitoring (even if no ocr,etc).
             services.AddSingleton<IQuestLocatorService, L>()
+                .AddSingleton<ChampionSharedQuestProcessor>()
                 .AddSingleton<IAddTechsToCharacterService, NoTechsCharacterService>()
                 .AddSingleton<IAddTechsToTechTreeService, ChampionCustomTechClass>();
             services.AddSingleton<IPlayQuestViewModel, ChampionTestSingleQuestViewModel>();
@@ -51,9 +52,48 @@ public static class ServiceExtensions
 
         services.RegisterAOEOTestsChampionMode<L>(services =>
         {
-           services.RegisterDefaultPopups()
-                .RegisterSpartanAutoClickOnlyServices<P>();
+            services.RegisterAutoClickOnlyLoaders<P>(additionalActions);
+        });
+        return services;
+    }
+    private static IServiceCollection RegisterAutoClickOnlyLoaders<P>(this IServiceCollection services, Action<IServiceCollection>? additionalServices = null)
+        where P : class, IClickLocationProvider
+    {
+        services.RegisterDefaultPopups()
+               .RegisterSpartanAutoClickOnlyServices<P>();
+        additionalServices?.Invoke(services);
+        return services;
+    }
+    public static IServiceCollection RegisterChampionModeProcessingServices(this IServiceCollection services, Action<IServiceCollection> additionalActions)
+    {
+        services.AddSingleton<IProcessQuestService, ChampionProcessQuestService>()
+            .AddSingleton<ChampionSharedQuestProcessor>()
+            .RegisterCoreOfflineServices()
+            .RegisterCoreQuestQuestProcessorServices()
+           .RegisterNoLaunchSpartanServices();
+        return services;
+    }
+    public static IServiceCollection RegisterChampionModeProcessingWithOcr
+        <I, O, P>(this IServiceCollection services, Action<IServiceCollection>? additionalActions)
+        where I : class, ICaptureGrayScaleMask
+        where O : class, IOcrProcessor
+        where P : class, IClickLocationProvider
+    {
+        services.RegisterChampionModeProcessingServices(services =>
+        {
+            services.RegisterSpartanOcrServices<I, O, P>()
+                .RegisterDefaultPopups()
+                .RegisterToastQuestEndingServices();
             additionalActions?.Invoke(services);
+        });
+        return services;
+    }
+    public static IServiceCollection RegisterChampionModeProcessingWithAutoclickOnly<P>(this IServiceCollection services, Action<IServiceCollection>? additionalActions)
+        where P : class, IClickLocationProvider
+    {
+        services.RegisterChampionModeProcessingServices(services =>
+        {
+            services.RegisterAutoClickOnlyLoaders<P>(additionalActions);
         });
         return services;
     }
