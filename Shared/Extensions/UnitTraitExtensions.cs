@@ -11,9 +11,14 @@ internal static class UnitTraitExtensions
         BasicList<BasicEffectModel> list = [];
         foreach (var unit in settings.Units)
         {
+            if (unit.ProtoName == "")
+            {
+                throw new CustomBasicException("Proto name is blank.  Cannot add unit techs");
+            }
+            string actionName = $"Spawn_{unit.ProtoName}";
             effect = new CustomTacticEffect()
             {
-                CustomTacticName = unit.ActionName,
+                CustomTacticName = actionName,
                 ProtoUnit = $"{civ!.CivAbb}_bldg_TownCenter"
             };
             list.Add(effect);
@@ -32,7 +37,7 @@ internal static class UnitTraitExtensions
         foreach (var unit in settings.Units)
         {
             text = $"""
-                <action>{unit.ActionName}</action>
+                <action>Spawn_{unit.ProtoName}</action>
                 """;
             tactic.Add(XElement.Parse(text));
         }
@@ -42,7 +47,7 @@ internal static class UnitTraitExtensions
         string text;
         text = $"""
             <action>
-            	<name>{unit.ActionName}</name>
+            	<name>Spawn_{unit.ProtoName}</name>
             	<type>Maintain</type>
             	<MaintainEntry>
             	  <TrainCount>{unit.HowMany}</TrainCount>

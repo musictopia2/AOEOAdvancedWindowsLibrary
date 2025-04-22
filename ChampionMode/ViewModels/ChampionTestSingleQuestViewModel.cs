@@ -27,7 +27,7 @@ public class ChampionTestSingleQuestViewModel(IChooseCivViewModel civVM,
             throw new CustomBasicException("Must set the new game path ahead of time now");
         }
         ResetQuestSettingsClass.ResetQuests(questSettings);
-        configurator.Configure(questSettings);
+        await configurator.ConfigureAsync(questSettings);
         await businessService.DoAllTechsAsync(); //i think
         await characterService.CopyCharacterFilesAsync();
 

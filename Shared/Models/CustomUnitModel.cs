@@ -1,2 +1,2 @@
 ﻿namespace AOEOAdvancedWindowsLibrary.Shared.Models;
-public record struct CustomUnitModel(string ProtoName, string ActionName, int HowMany);
+public record struct CustomUnitModel(string ProtoName, int HowMany);
