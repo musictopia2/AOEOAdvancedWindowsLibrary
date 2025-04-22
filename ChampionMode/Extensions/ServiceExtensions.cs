@@ -70,6 +70,7 @@ public static class ServiceExtensions
             .AddSingleton<ChampionSharedQuestProcessor>()
             .RegisterCoreOfflineServices()
             .RegisterCoreQuestQuestProcessorServices()
+            .AddSingleton<IAddTechsToCharacterService, NoTechsCharacterService>()
            .RegisterNoLaunchSpartanServices();
         return services;
     }
