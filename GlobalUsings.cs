@@ -32,3 +32,4 @@ global using WindowsGenericPopups.WPFCoreLibrary.Popups;
 global using AOEOAdvancedWindowsLibrary.Shared.Utilities;
 global using AOEOAdvancedWindowsLibrary.ChampionMode.Services;
 global using AOEOCivilizationLibrary.DataServices;
+global using AOEOBasicDataLibrary.Helpers;
