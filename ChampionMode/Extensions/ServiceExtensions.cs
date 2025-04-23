@@ -72,6 +72,7 @@ public static class ServiceExtensions
             .RegisterCoreQuestQuestProcessorServices()
             .AddSingleton<IAddTechsToCharacterService, NoTechsCharacterService>()
            .RegisterNoLaunchSpartanServices();
+        additionalActions?.Invoke(services); //major but here.
         return services;
     }
     public static IServiceCollection RegisterChampionModeProcessingWithOcr
