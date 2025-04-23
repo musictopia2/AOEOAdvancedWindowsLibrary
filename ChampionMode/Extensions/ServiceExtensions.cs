@@ -71,7 +71,12 @@ public static class ServiceExtensions
             .RegisterCoreOfflineServices()
             .RegisterCoreQuestQuestProcessorServices()
             .AddSingleton<IAddTechsToCharacterService, NoTechsCharacterService>()
-           .RegisterNoLaunchSpartanServices();
+            .AddSingleton<IAddTechsToTechTreeService, ChampionCustomTechClass>();
+        services.RegisterCoreOfflineServices()
+         .RegisterStandardQuestServices()
+         .RegisterNoLaunchSpartanServices()
+         .RegisterSpartanMonitorServices();
+        ;
         additionalActions?.Invoke(services); //major but here.
         return services;
     }

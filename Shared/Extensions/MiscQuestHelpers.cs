@@ -1,4 +1,5 @@
-﻿namespace AOEOAdvancedWindowsLibrary.Shared.Extensions;
+﻿using System.IO; //because path is used elsewhere in this codebase.
+namespace AOEOAdvancedWindowsLibrary.Shared.Extensions;
 public static class MiscQuestHelpers
 {
     public static string GetQuestTitle(this XElement source) //this is for sure needed.

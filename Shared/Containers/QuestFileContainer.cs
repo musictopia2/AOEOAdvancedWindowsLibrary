@@ -1,23 +1,33 @@
-﻿namespace AOEOAdvancedWindowsLibrary.Shared.Containers;
+﻿using System.IO;
+namespace AOEOAdvancedWindowsLibrary.Shared.Containers;
 public class QuestFileContainer
 {
-    public QuestFileModel? QuestFile { get; private set; }
-    public void SetQuestFile(string title, string path)
+    private QuestFileModel? _questFile;
+    //public QuestFileModel? QuestFile { get; private set; }
+    public void SetQuestFile(string title, string fileName)
     {
-        if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(fileName))
         {
             throw new CustomBasicException("Title or path cannot be empty.");
         }
-        if (ff1.FileExists(path) == false)
-        {
-            throw new CustomBasicException($"File does not exist: {path}");
-        }
-        QuestFile = new QuestFileModel(title, path);
+        _questFile = new QuestFileModel(title, fileName);
     } //i think needs to be done this way for now.
     public void ClearQuestFile()
     {
-        QuestFile = null;
+        _questFile = null;
     }
-    public string QuestTitle => QuestFile?.Title ?? string.Empty;
-    public string QuestPath => QuestFile?.Path ?? string.Empty;
+    public string QuestTitle => _questFile?.Title ?? string.Empty;
+    public string FileName => _questFile?.FileName ?? string.Empty;
+    public string QuestPath
+    {
+        get
+        {
+            if (_questFile is null)
+            {
+                return "";
+            }
+            string output = Path.Combine(dd1.NewQuestFileDirectory, $"{_questFile.Value.FileName}.quest");
+            return output;
+        }
+    }
 }

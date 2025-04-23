@@ -14,10 +14,10 @@ public class ChampionProcessQuestService(
         {
             throw new CustomBasicException("Must set the new game path ahead of time now");
         }
-        if (questFileContainer.QuestFile == null)
+        if (string.IsNullOrWhiteSpace(questFileContainer.FileName))
         {
             throw new CustomBasicException("Must set the quest file ahead of time");
         }
-        await processor.ProcessQuestAsync(questFileContainer.QuestFile.Value.Path);
+        await processor.ProcessQuestAsync(questFileContainer.QuestPath);
     }
 }
