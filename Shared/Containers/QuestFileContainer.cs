@@ -18,4 +18,6 @@ public class QuestFileContainer
     {
         QuestFile = null;
     }
+    public string QuestTitle => QuestFile?.Title ?? string.Empty;
+    public string QuestPath => QuestFile?.Path ?? string.Empty;
 }
