@@ -13,7 +13,7 @@ public static class ReportHelpers
             PossibleChooseQuestModel quest = new()
             {
                 Title = title,
-                FileName = file,
+                FileName = ff1.FileName(file),
                 IsSelected = false
             };
             output.Add(quest);
