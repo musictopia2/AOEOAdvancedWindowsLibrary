@@ -1,16 +1,16 @@
 ﻿namespace AOEOAdvancedWindowsLibrary.Shared.Utilities;
 public static class ReportHelpers
 {
-    public static async Task<BasicList<QuestFileModel>> ListAllQuestFilesAsync()
+    public static async Task<BasicList<PossbileChooseQuestModel>> ListAllQuestFilesAsync()
     {
-        BasicList<QuestFileModel> output = [];
+        BasicList<PossbileChooseQuestModel> output = [];
         BasicList<string> files = await ff1.FileListAsync(dd1.NewQuestFileDirectory);
         foreach (var file in files)
         {
             string content = await ff1.AllTextAsync(file);
             XElement source = XElement.Parse(content);
             string title = source.GetQuestTitle();
-            output.Add(new(title, file));
+            output.Add(new(title, file, false));
         }
         if (output.Count == 0)
         {
