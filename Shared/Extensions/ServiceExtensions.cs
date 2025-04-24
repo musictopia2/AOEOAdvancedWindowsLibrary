@@ -5,6 +5,7 @@ public static class ServiceExtensions
     public static IServiceCollection RegisterSpartanMonitorServices(this IServiceCollection services)
     {
         services.AddSingleton<ISpartanMonitor, SpartanMonitorService>()
+            .AddSingleton<StatusContainer>()
             .AddSingleton<ISpartanExitHandler, ToastAndExitHandler>();
         return services;
     }

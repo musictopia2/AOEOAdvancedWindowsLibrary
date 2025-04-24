@@ -17,7 +17,7 @@ public class QuestAutoClicker(LocationContainer locationContainer
         }
         CancellationToken token = monitor.RegisterWatcher(EnumSpartaExitStage.AutoClicking);
         await aa1.ClickSeveralLocationsAsync(locationContainer.Locations, 500, token);
-        TestConfiguration.MinimizeWindow();
+        WindowConfiguration.MinimizeWindow();
         if (token.IsCancellationRequested)
         {
             //the monitor already handled this.
@@ -33,7 +33,7 @@ public class QuestAutoClicker(LocationContainer locationContainer
     }
     private void StartQuest()
     {
-        TestConfiguration.MinimizeWindow();
+        WindowConfiguration.MinimizeWindow();
         quest.Monitor();
     }
 }

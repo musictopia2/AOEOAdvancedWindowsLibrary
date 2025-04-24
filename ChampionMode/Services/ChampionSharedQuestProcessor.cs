@@ -9,7 +9,8 @@ public class ChampionSharedQuestProcessor(
     IQuestConfigurator configurator,
     IClickLocationProvider location,
     ISpartanLaunchHandler launch,
-    IGlobalTechStrategy global
+    IGlobalTechStrategy global,
+    StatusContainer statusContainer
     )
 {
     public async Task ProcessQuestAsync(string oldQuestPath)
@@ -43,6 +44,7 @@ public class ChampionSharedQuestProcessor(
         SpartanUtilities.ExitSpartan(); //if there are any opened, must be closed.
         playService.OpenOfflineGame(dd1.SpartanDirectoryPath);
         location.PopulateClickLocations();
+        statusContainer.StartPlaying();
         launch.OnSpartanLaunched();
     }
 }
