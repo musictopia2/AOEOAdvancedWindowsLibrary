@@ -10,10 +10,11 @@ public static class ReportHelpers
             string content = await ff1.AllTextAsync(file);
             XElement source = XElement.Parse(content);
             string title = source.GetQuestTitle();
+            string name = ff1.FileName(file);
             PossibleChooseQuestModel quest = new()
             {
                 Title = title,
-                FileName = ff1.FileName(file),
+                FileName = name,
                 IsSelected = false
             };
             output.Add(quest);
