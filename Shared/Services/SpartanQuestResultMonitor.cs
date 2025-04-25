@@ -35,31 +35,39 @@ public partial class SpartanQuestResultMonitor(
     }
     private async Task<string> GetTimeAsync(CancellationToken token)
     {
-        Rectangle bounds = OcrConfiguration.TimerRegion;
-        using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
-        string text = await ocr.GetTextAsync(bitmap, token);
-        var timeMatch = TimeMatch().Match(text);
-        if (timeMatch.Success)
+        // Offload capture and OCR to a background thread
+        return await Task.Run(async () =>
         {
-            return timeMatch.Value;
-        }
-        return "";
+            Rectangle bounds = OcrConfiguration.TimerRegion;
+            using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
+            string text = await ocr.GetTextAsync(bitmap, token);
+            var timeMatch = TimeMatch().Match(text);
+            if (timeMatch.Success)
+            {
+                return timeMatch.Value;
+            }
+            return "";
+        }, token);
     }
     private async Task<EnumSpartaQuestResult> GetResultsAsync(CancellationToken token)
     {
-        Rectangle bounds = OcrConfiguration.QuestStatusRegion;
-        using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
-        string text = await ocr.GetTextAsync(bitmap, token);
-        
-        if (text.Contains(OcrConfiguration.SuccessMessage))
+        // Offload capture and OCR to a background thread
+        return await Task.Run(async () =>
         {
-            return EnumSpartaQuestResult.Completed;
-        }
-        if (text.Contains(OcrConfiguration.FailureMessage))
-        {
-            return EnumSpartaQuestResult.Failed;
-        }
-        return EnumSpartaQuestResult.Ongoing;
+            Rectangle bounds = OcrConfiguration.QuestStatusRegion;
+            using Bitmap bitmap = capture.CaptureMaskedBitmap(bounds);
+            string text = await ocr.GetTextAsync(bitmap, token);
+
+            if (text.Contains(OcrConfiguration.SuccessMessage))
+            {
+                return EnumSpartaQuestResult.Completed;
+            }
+            if (text.Contains(OcrConfiguration.FailureMessage))
+            {
+                return EnumSpartaQuestResult.Failed;
+            }
+            return EnumSpartaQuestResult.Ongoing;
+        }, token);
     }
     [GeneratedRegex(@"\b\d{2}:\d{2}:\d{2}\b")]
     private static partial Regex TimeMatch();
